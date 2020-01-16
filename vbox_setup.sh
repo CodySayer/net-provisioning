@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # * BEGIN TEMPLATE
 
@@ -31,8 +31,10 @@ create_vm () {
     vbmg createmedium disk --filename "$VM_DIR"/CentOS.vdi --size 10240
     
     vbmg storagectl TODO4640 --name SATA --add SATA --controller IntelAhci --bootable on
-
     vbmg storageattach TODO4640 --storagectl SATA --port 0 --device 0 --type hdd --medium "$VM_DIR"/CentOS.vdi
+
+    vbmg storagectl TODO4640 --name IDE --add IDE
+    vbmg storageattach TODO4640 --storagectl IDE --port 1 --device 1 --type dvddrive --medium emptydrive
 }
 
 echo "Starting script..."
