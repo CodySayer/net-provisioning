@@ -4,10 +4,10 @@ After=network.target
 
 [Service]
 Environment=NODE_PORT=8080
-WorkingDirectory=/home/todo-app/app
+WorkingDirectory=/home/todoapp/app/ACIT4640-todo-app
 Type=simple
-User=todo-app
-ExecStart=/usr/bin/node /home/todo-app/app/server.js
+User=todoapp
+ExecStart=/usr/bin/node /home/todoapp/app/ACIT4640-todo-app/server.js
 Restart=always
 
 [Install]
