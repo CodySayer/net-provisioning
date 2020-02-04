@@ -3,6 +3,6 @@
 echo "Starting script..."
 
 scp -r setup todoapp:/home/admin
-ssh todoapp '/bin/bash /home/admin/setup'
+cat install_script.sh | ssh todoapp '/bin/bash /home/admin/setup'
 
 echo "DONE!"
