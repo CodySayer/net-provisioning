@@ -9,7 +9,7 @@ SSH_PORT="12022"
 WEB_PORT="12080"
 SED_PROGRAM="/^Config file:/ { s/^.*:\s\+\(\S\+\)/\1/; s|\\\\|/|gp }"
 VBOX_FILE=$(vbmg showvminfo "$VM_NAME" | sed -ne "$SED_PROGRAM")
-VM_DIR=$(dirname "$VBOX_FILE")
+VM_DIR=$(sdirname "$VBOX_FILE")
 
 # This function will clean the NAT network and the virtual machine
 clean_all () {
