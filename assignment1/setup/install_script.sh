@@ -14,16 +14,16 @@ create_user () {
     sudo mkdir /home/todoapp/app
     sudo chown todoapp -R /home/todoapp
     sudo su - todoapp
-    sudo git clone https://github.com/timoguic/ACIT4640-todo-app.git /home/todo-app/app/ACIT4640-todo-app
+    sudo git clone https://github.com/timoguic/ACIT4640-todo-app.git /home/todoapp/app/ACIT4640-todo-app
 }
 
 install_application () {
-    sudo npm install --prefix /home/todo-app/app/ACIT4640-todo-app
-    sudo mv /home/admin/assignment1/database.js /home/todo-app/app/ACIT4640-todo-app/config/
-    sudo firewall-cmd --permanent --zone=public --add-port="$PORT"/tcp
+    sudo npm install --prefix /home/todoapp/app/ACIT4640-todo-app
+    sudo mv /home/admin/assignment1/database.js /home/todoapp/app/ACIT4640-todo-app/config/
+    sudo firewall-cmd --permanent --zone=public --add-port=8080/tcp
     sudo firewall-cmd --runtime-to-permanent
     cd /home
-    sudo chmod 755 -R /home/todoapp/
+    sudo chmod 655 -R /home/todoapp/
 }
 
 install_nginx () {
