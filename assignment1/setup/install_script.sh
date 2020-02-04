@@ -5,7 +5,7 @@ install_packages () {
     sudo yum install git -y
     sudo yum install nodejs npm -y
     sudo yum install mongodb-server npm -y
-    sudo systemctl enable mongod && systemctl start mongod
+    sudo systemctl enable mongod && sudo systemctl start mongod
 }
 
 create_user () {
