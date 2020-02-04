@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# * BEGIN TEMPLATE
-
 # This is a shortcut function that makes it shorter and more readable
 vbmg () { /mnt/c/Program\ Files/Oracle/VirtualBox/VBoxManage.exe "$@"; }
 
