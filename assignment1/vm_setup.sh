@@ -1,25 +1,9 @@
 #!/bin/bash
 
-echo P@ssw0rd | ssh root@localhost -P 12022
+echo "Starting script..."
 
-
-# vm_connect () {
-#     ssh admin@todoapp
-# }
-
-# install_packages () {
-#     sudo yum install git
-#     sudo yum install nodejs npm -y
-#     sudo yum install mongodb-server npm -y
-#     sudo systemctl enable mongod && systemctl start mongod
-# }
-
-# create_user () {
-#     sudo useradd todoapp
-#     echo "P@ssw0rd" | sudo passwd --stdin todoapp
-#     sudo su - todoapp
-#     git clone https://github.com/timoguic/ACIT4640-todo-app.git /home/todo-app/app/
-# }
+scp todoapp -r ./assignment1 admin@localhost:/home/admin
+ssh todoapp '/bin/bash /home/admin/assignment1'
 
 # echo "Starting script..."
 
