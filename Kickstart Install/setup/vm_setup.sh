@@ -31,15 +31,18 @@ create_user () {
     sudo git clone https://github.com/timoguic/ACIT4640-todo-app.git /home/todoapp/app/ACIT4640-todo-app
 }
 
-# TODO: breakout test this function
-# install_application () {
-#     sudo npm install --prefix /home/todoapp/app/ACIT4640-todo-app
-#     sudo mv /home/admin/assignment1/database.js /home/todoapp/app/ACIT4640-todo-app/config/
-#     sudo firewall-cmd --permanent --zone=public --add-port=8080/tcp
-#     sudo firewall-cmd --runtime-to-permanent
-#     cd /home
-#     sudo chmod 655 -R /home/todoapp/
-# }
+install_application () {
+    echo "[running npm install]"
+    sudo npm install --prefix /home/todoapp/app/ACIT4640-todo-app >> /dev/null
+    echo "[moving database.js from setup folder to target]"
+    sudo mv /home/admin/setup/database.js /home/todoapp/app/ACIT4640-todo-app/config/ >> /dev/null
+    echo "[setting firewall rules]"
+    sudo firewall-cmd --permanent --zone=public --add-port=8080/tcp >> /dev/null
+    sudo firewall-cmd --runtime-to-permanent >> /dev/null
+    echo "[returning home and setting permissions]"
+    cd /home >> /dev/null
+    sudo chmod 655 -R /home/todoapp/ >> /dev/null
+}
 
 # TODO: breakout test this function
 # install_nginx () {
@@ -63,7 +66,7 @@ echo "Starting script..."
 
 install_packages
 create_user
-# install_application
+install_application
 # install_nginx
 # nodejs_systemd
 
