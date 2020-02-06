@@ -9,7 +9,7 @@ SSH_PORT="12022"
 WEB_PORT="12080"
 SED_PROGRAM="/^Config file:/ { s/^.*:\s\+\(\S\+\)/\1/; s|\\\\|/|gp }"
 VBOX_FILE=$(vbmg showvminfo "$VM_NAME" | sed -ne "$SED_PROGRAM")
-VM_DIR=$(sdirname "$VBOX_FILE")
+VM_DIR=$(dirname "$VBOX_FILE")
 
 # This function will clean the NAT network and the virtual machine
 clean_all () {
@@ -18,7 +18,7 @@ clean_all () {
 }
 
 create_network () {
-    vbmg natnetwork add --netname "$NET_NAME" --network "192.168.230.0/24"  --dhcp "off" --ipv6 "off" --port-forward-4 "SSH:tcp:[]:12022:[192.168.230.10]:22" --port-forward-4 "HTTP:tcp:[]:12080:[192.168.230.10]:80"
+    vbmg natnetwork add --netname "$NET_NAME" --network "192.168.230.0/24"  --dhcp "off" --ipv6 "off" --port-forward-4 "SSH:tcp:[]:12022:[192.168.230.10]:22" --port-forward-4 "HTTP:tcp:[]:12080:[192.168.230.10]:80" --port-forward-4 "PXESSH:tcp:[]:12222:[192.168.230.200]:22"
 
 }
 
