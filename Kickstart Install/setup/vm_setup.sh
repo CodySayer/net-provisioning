@@ -44,30 +44,48 @@ install_application () {
     sudo chmod 655 -R /home/todoapp/ >> /dev/null
 }
 
-# TODO: breakout test this function
-# install_nginx () {
-#     sudo yum install nginx -y
-#     sudo systemctl enable nginx && systemctl start nginx
-#     sudo mv /home/admin/assignment1/nginx.conf /etc/nginx/
-#     sudo systemctl restart nginx
-# }
+install_nginx () {
+    echo "[installing epel-release]"
+    sudo yum install epel-release -y >> /dev/null
+    echo "[installing nginx]"
+    sudo yum install nginx -y >> /dev/null
+    echo "[starting nginx]"
+    sudo systemctl start nginx >> /dev/null
+    echo "[moving nginx.conf to target]"
+    sudo mv /home/admin/setup/nginx.conf /etc/nginx/nginx.conf >> /dev/null
+    echo "[owning and setting permissions for nginx]"
+    sudo chmod 774 /etc/nginx/nginx.conf >> /dev/null
+    sudo chown nginx:nginx /etc/nginx/nginx.conf >> /dev/null
+    echo "[enabling nginx]"
+    sudo systemctl enable nginx >> /dev/null
+    echo "[restarting nginx]"
+    sudo fuser -k 80/tcp >> /dev/null
+    sudo systemctl restart nginx >> /dev/null
+}
 
-# TODO: breakout test this function
-# nodejs_systemd () {
-#     sudo mv /home/admin/assignment1/todoapp.service /etc/systemd/system/
-#     sudo systemctl daemon-reload
-#     sudo systemctl enable todoapp
-#     sudo systemctl start todoapp
-#     sudo systemctl status todo app
-#     sudo systemctl restart nginx
-# }
+nodejs_systemd () {
+    echo "[moving todoapp.service to target]"
+    sudo mv /home/admin/setup/todoapp.service /etc/systemd/system/ >> /dev/null
+    echo "[reloading daemon]"
+    sudo systemctl daemon-reload >> /dev/null
+    echo "[enabling todoapp.service]"
+    sudo systemctl enable todoapp >> /dev/null
+    echo "[starting todoapp.service]"
+    sudo systemctl start todoapp >> /dev/null
+    echo "[checking todoapp.service status]"
+    sudo systemctl status todoapp >> /dev/null
+    echo "[killing port 80]"
+    sudo fuser -k 80/tcp >> /dev/null
+    echo "[restarting nginx]"
+    sudo systemctl restart nginx >> /dev/null
+}
 
 echo "Starting script..."
 
 install_packages
 create_user
 install_application
-# install_nginx
-# nodejs_systemd
+install_nginx
+nodejs_systemd
 
 echo "DONE!"
