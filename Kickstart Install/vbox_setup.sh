@@ -24,8 +24,8 @@ create_network () {
 
 create_vm () {
     vbmg createvm --name "$VM_NAME" --ostype "RedHat_64" --register
-    vbmg modifyvm "$VM_NAME" --memory 1024 --cpus 1 --nic1 natnetwork --nat-network1 "$NET_NAME" --mouse usbtablet --audio none
-    
+    vbmg modifyvm "$VM_NAME" --memory 1536 --cpus 1 --nic1 natnetwork --nat-network1 "$NET_NAME" --mouse usbtablet --audio none
+
     vbmg createmedium disk --filename "$VM_DIR"/CentOS.vdi --size 10240
     
     vbmg storagectl TODO4640 --name SATA --add SATA --controller IntelAhci --bootable on
@@ -33,6 +33,9 @@ create_vm () {
 
     vbmg storagectl TODO4640 --name IDE --add IDE
     vbmg storageattach TODO4640 --storagectl IDE --port 1 --device 1 --type dvddrive --medium emptydrive
+
+    vbmg modifyvm "$VM_NAME" --boot1 disk --boot2 net
+
 }
 
 echo "Starting script..."
