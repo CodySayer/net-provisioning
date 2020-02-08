@@ -1,8 +1,10 @@
 #!/bin/bash
 
 install_packages () {
+    export LANG=en_US
     echo "[updating repos]"
     echo P@ssw0rd | sudo -S yum install update -y >> /dev/null
+    sudo yum install psmisc -y >> /dev/null
     echo "[installing git]"
     sudo yum install git -y >> /dev/null
     echo "[adding node repo]"
@@ -54,9 +56,10 @@ install_nginx () {
     echo "[moving nginx.conf to target]"
     sudo mv /home/admin/setup/nginx.conf /etc/nginx/nginx.conf >> /dev/null
     echo "[owning and setting permissions for nginx]"
-    sudo chmod 774 /etc/nginx/nginx.conf >> /dev/null
+    sudo chmod 777 /etc/nginx/nginx.conf >> /dev/null
     sudo chown nginx:nginx /etc/nginx/nginx.conf >> /dev/null
     echo "[enabling nginx]"
+    sudo setenforce 0
     sudo systemctl enable nginx >> /dev/null
     echo "[restarting nginx]"
     sudo fuser -k 80/tcp >> /dev/null
@@ -65,7 +68,9 @@ install_nginx () {
 
 nodejs_systemd () {
     echo "[moving todoapp.service to target]"
-    sudo mv /home/admin/setup/todoapp.service /etc/systemd/system/ >> /dev/null
+    sudo mv /home/admin/setup/todoapp.service /etc/systemd/ >> /dev/null
+    sudo chmod 0644 /etc/systemd/system/todoapp.service
+    sudo chown root:root /etc/systemd/system/todoapp.service
     echo "[reloading daemon]"
     sudo systemctl daemon-reload >> /dev/null
     echo "[enabling todoapp.service]"
@@ -73,10 +78,10 @@ nodejs_systemd () {
     echo "[starting todoapp.service]"
     sudo systemctl start todoapp >> /dev/null
     echo "[checking todoapp.service status]"
-    sudo systemctl status todoapp >> /dev/null
-    echo "[killing port 80]"
-    sudo fuser -k 80/tcp >> /dev/null
+    sudo systemctl status todoapp
     echo "[restarting nginx]"
+    sudo setenforce 0
+    sudo fuser -k 80/tcp >> /dev/null
     sudo systemctl restart nginx >> /dev/null
 }
 
@@ -87,5 +92,8 @@ create_user
 install_application
 install_nginx
 nodejs_systemd
+
+# TODO: fix todoapp.service issues
+/usr/bin/node /home/todoapp/app/ACIT4640-todo-app/server.js
 
 echo "DONE!"
