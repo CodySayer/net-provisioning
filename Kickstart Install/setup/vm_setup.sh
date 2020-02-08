@@ -34,6 +34,7 @@ create_user () {
 }
 
 install_application () {
+    # Something in here is wrong, the todoapp.service doesn't start up properly
     echo "[running npm install]"
     sudo npm install --prefix /home/todoapp/app/ACIT4640-todo-app >> /dev/null
     echo "[moving database.js from setup folder to target]"
