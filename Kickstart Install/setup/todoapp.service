@@ -1,5 +1,5 @@
 [Unit]
-Description=Todo app, ACIT4640
+Description=Todo app, ACIT 4640
 After=network.target
 
 [Service]

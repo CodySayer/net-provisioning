@@ -94,7 +94,6 @@ install_application
 install_nginx
 nodejs_systemd
 
+echo "DONE!"
 # TODO: fix todoapp.service issues
 /usr/bin/node /home/todoapp/app/ACIT4640-todo-app/server.js
-
-echo "DONE!"
