@@ -27,7 +27,7 @@ pxeSetup () {
 
         # ! WAIT FOR PXE MACHINE
         while /bin/true; do
-                ssh -i ~/ssh_keys/acit_admin_id_rsa -p 12222 \
+                ssh -i ~/.ssh/acit_admin_id_rsa -p 12222 \
                 -o ConnectTimeout=2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
                 -q admin@localhost exit
                 if [ $? -ne 0 ]; then
@@ -51,7 +51,7 @@ todoappSetup () {
 
         # ! WAIT FOR TODOAPP MACHINE
         while /bin/true; do
-                ssh -i ~/ssh_keys/acit_admin_id_rsa -p 12022 \
+                ssh -i ~/.ssh/acit_admin_id_rsa -p 12022 \
                 -o ConnectTimeout=2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
                 -q admin@localhost exit
                 if [ $? -ne 0 ]; then
