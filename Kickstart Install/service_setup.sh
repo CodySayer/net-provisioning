@@ -17,6 +17,7 @@ vbmg () {
 
 # ! SET UP VIRTUALBOX ENVIRONMENT
 vboxSetup () {
+        find . -type f -exec dos2unix {} \;
         echo "[Running vbox_setup.sh]"
         ./vbox_setup.sh
 }
