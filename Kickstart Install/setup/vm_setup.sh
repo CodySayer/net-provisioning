@@ -34,7 +34,6 @@ create_user () {
 }
 
 install_application () {
-    # Something in here is wrong, the todoapp.service doesn't start up properly
     echo "[running npm install]"
     sudo npm install --prefix /home/todoapp/app/ACIT4640-todo-app >> /dev/null
     echo "[moving database.js from setup folder to target]"
@@ -44,7 +43,9 @@ install_application () {
     sudo firewall-cmd --runtime-to-permanent >> /dev/null
     echo "[returning home and setting permissions]"
     cd /home >> /dev/null
-    sudo chmod 655 -R /home/todoapp/ >> /dev/null
+    sudo chmod 755 -R /home/todoapp/ >> /dev/null
+    echo "[giving todoapp home ownership]"
+    sudo chown todoapp -R /home/todoapp >> /dev/null
 }
 
 install_nginx () {
@@ -70,8 +71,8 @@ install_nginx () {
 nodejs_systemd () {
     echo "[moving todoapp.service to target]"
     sudo mv /home/admin/setup/todoapp.service /etc/systemd/system/ >> /dev/null
-    sudo chmod 0644 /etc/systemd/system/todoapp.service
-    sudo chown root:root /etc/systemd/system/todoapp.service
+    # sudo chmod 0644 /etc/systemd/system/todoapp.service
+    sudo chown todoapp:todoapp /etc/systemd/system/todoapp.service
     echo "[reloading daemon]"
     sudo systemctl daemon-reload >> /dev/null
     echo "[enabling todoapp.service]"
@@ -95,5 +96,3 @@ install_nginx
 nodejs_systemd
 
 echo "DONE!"
-# TODO: fix todoapp.service issues
-/usr/bin/node /home/todoapp/app/ACIT4640-todo-app/server.js
