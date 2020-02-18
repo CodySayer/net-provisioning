@@ -1,7 +1,7 @@
 {
     "description": "Packer basebox for 4640",
     "variables": {
-        "admin_user": "todoapp",
+        "admin_user": "admin",
         "admin_passwd": "P@ssw0rd",
         "pub_key_file": "./files/acit_admin_id_rsa.pub",
         "iso_url": "./isos/CentOS-7-x86_64-Minimal-1908.iso",
@@ -45,13 +45,29 @@
     "provisioners": [{
             "type": "shell",
             "inline": [
-                "mkdir ~{{ user `admin_user`}}/.ssh"
+                "sum yum -y install epel-release",
+                "sum yum -y update",
+                "sudo sed -r -i 's/SELINUX=(enforcing|disabled)/SELINUX=permissive/' /etc/selinux/config"
             ]
         },
         {
             "type": "file",
-            "source": "{{ user `pub_key_file` }}",
-            "destination": "/home/{{ user `admin_user` }}/.ssh/authorized_keys"
+            "source": "setup",
+            "destination": "/home/{{ user `admin_user` }}"
+        },
+        {
+            "type": "file",
+            "source": ".ssh",
+            "destination": "/home/{{ user `admin_user` }}"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "chmod -R 600 /home/{{ user `admin_user`}}/.ssh/acit_admin_id_rsa",
+                "chmod -R 744 /home/{{ user `admin_user`}}/.ssh/acit_admin_id_rsa.pub",
+                "chown -R {{ user `admin_user`}}:{{ user `admin_user`}} /home/{{ user `admin_user`}}",
+                "/bin/bash /home/{{ user `admin_user`}}/setup/install_script.sh"
+            ]
         }
     ]
 }
