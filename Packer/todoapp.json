@@ -66,7 +66,7 @@
                 "chmod -R 600 /home/{{ user `admin_user`}}/.ssh/acit_admin_id_rsa",
                 "chmod -R 744 /home/{{ user `admin_user`}}/.ssh/acit_admin_id_rsa.pub",
                 "chown -R {{ user `admin_user`}}:{{ user `admin_user`}} /home/{{ user `admin_user`}}",
-                "/bin/bash /home/{{ user `admin_user`}}/setup/install_script.sh"
+                "/bin/bash /home/{{ user `admin_user`}}/setup/vm_setup.sh"
             ]
         }
     ]
