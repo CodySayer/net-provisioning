@@ -45,7 +45,10 @@
     "provisioners": [{
             "type": "shell",
             "inline": [
-                "mkdir ~{{ user `admin_user`}}/.ssh"
+                "mkdir ~{{ user `admin_user`}}/.ssh",
+                "sudo yum -y install epel-release",
+                "sudo yum -y update",
+                "sudo sed -r -i 's/SELINUX=(enforcing|disabled)/SELINUX=permissive/' /etc/selinux/config"
             ]
         },
         {
