@@ -63,7 +63,7 @@
         {
             "type": "shell",
             "inline": [
-                "chmod -R 744 /home/{{ user `admin_user`}}/Files/acit_admin_id_rsa.pub",
+                "chmod -R 744 /home/{{ user `admin_user`}}/files/acit_admin_id_rsa.pub",
                 "chown -R {{ user `admin_user`}}:{{ user `admin_user`}} /home/{{ user `admin_user`}}",
                 "/bin/bash /home/{{ user `admin_user`}}/setup/vm_setup.sh"
             ]
