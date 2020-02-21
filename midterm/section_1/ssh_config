@@ -1,0 +1,59 @@
+# GitLab
+Host gitlab-acit4850-group10.westus2.cloudapp.azure.com
+	Preferredauthentications publickey
+	IdentityFile ~/ssh_keys/GitLab
+
+# Slash
+Host 52.224.55.116
+	Preferredauthentications publickey
+	IdentityFile ~/ssh_keys/azure
+
+# JIRA
+Host 40.76.215.206
+	Preferredauthentications publickey
+	IdentityFile ~/ssh_keys/azure
+
+# Jenkins
+Host 104.211.47.131
+	Preferredauthentications publickey
+	IdentityFile ~/ssh_keys/azure
+
+Host github.com
+	User git
+	IdentityFile ~/ssh_keys/gitkey
+
+# Todoapp
+Host todoapp
+	Hostname localhost
+	Port 12022
+	IdentityFile ~/.ssh/acit_admin_id_rsa
+	User admin
+	StrictHostKeyChecking no
+	UserKnownHostsFile=/dev/null
+
+# Todo PXE boot
+Host pxe
+	Hostname localhost
+	Port 12222
+	IdentityFile ~/.ssh/acit_admin_id_rsa
+	User admin
+	StrictHostKeyChecking no
+	UserKnownHostsFile=/dev/null
+
+host midterm-bonus
+    hostname localhost
+    Port 33322
+    IdentityFile ~/.ssh/midterm_exam_bonus_id_rsa
+    User admin
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
+    ConnectTimeout=2
+
+host midterm
+    hostname localhost
+    Port 12922
+    IdentityFile ~/.ssh/midterm_id_rsa
+    User midterm
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
+    ConnectTimeout=2
