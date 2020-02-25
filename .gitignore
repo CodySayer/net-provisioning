@@ -1,2 +1,4 @@
 
-Packer/isos/CentOS-7-x86_64-Minimal-1908.iso
+Packer/Isos/CentOS-7-x86_64-Minimal-1908.iso
+Packer/packer_cache
+Packer/output/4640_BASE.ova
