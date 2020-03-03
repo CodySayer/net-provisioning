@@ -1,5 +1,5 @@
 # A Repo for ACIT 4640: Network Provisioning
 
-## Module 5
+## Module 6
 
-Provisioning with Packer
+Automated provisioning with Vagrant
