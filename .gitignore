@@ -2,3 +2,9 @@
 Packer/Isos/CentOS-7-x86_64-Minimal-1908.iso
 Packer/packer_cache
 Packer/output/4640_BASE.ova
+Packer/base_4640.box
+Packer/output
+module06/Isos/CentOS-7-x86_64-Minimal-1908.iso
+module06/packer_cache
+module06/output/4640_BASE.ova
+module06/.vagrant
