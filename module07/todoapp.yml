@@ -1,0 +1,193 @@
+---
+- hosts: all
+  vars:
+    admin_user_name: admin
+  tasks:
+    - name: update all packages
+      yum:
+        name: "*"
+        state: latest
+        exclude: kernel*
+      become: yes
+    - name: installing git
+      yum:
+        name: "git"
+        state: present
+      become: yes
+    - name: installing psmisc
+      yum:
+        name: "psmisc"
+        state: present
+      become: yes
+    - name: add node repo
+      shell:
+        cmd: curl -sL https://rpm.nodesource.com/setup_10.x | bash - >> /dev/null
+        warn: false
+      become: yes
+    - name: installing node
+      yum:
+        name: "nodejs"
+        state: present
+      become: yes
+    - name: copy the "mongodb-org.repo" file
+      copy:
+        src: ./files/mongodb-org.repo
+        dest: /etc/yum.repos.d/mongodb-org.repo
+        owner: admin
+        mode: 0755
+      become: yes
+    - name: installing mongodb server
+      yum:
+        name: "mongodb-org-server"
+        state: present
+      become: yes
+    - name: enabling mongod
+      service:
+        name: mongod
+        enabled: yes
+      become: yes
+    - name: starting mongod
+      service:
+        name: mongod
+        state: started
+      become: yes
+    - group:
+        name: todoapp
+        state: present
+      become: yes
+    - name: add todoapp user
+      user:
+        name: todoapp
+        comment: todoapp user
+        group: todoapp
+        password: P@ssw0rd
+      become: yes
+    - name: create todoapp home directory
+      file:
+        path: /home/todoapp/app
+        state: directory
+        mode: '0755'
+        owner: todoapp
+        group: todoapp
+      become: yes
+    - name: clone todoapp repo
+      git:
+        repo: https://github.com/timoguic/ACIT4640-todo-app.git
+        version: master
+        dest: /home/todoapp/app/ACIT4640-todo-app
+        force: yes
+      become: yes
+    - name: npm install for todoapp
+      npm:
+        path: /home/todoapp/app/ACIT4640-todo-app
+      become: yes
+    - name: copy the "database.js" file
+      copy:
+        src: ./files/database.js
+        dest: /home/todoapp/app/ACIT4640-todo-app/config/
+        owner: todoapp
+        mode: 0755
+      become: yes
+    - name: setting directory permissions and taking ownership
+      file:
+        path: /home/todoapp
+        state: directory
+        mode: '0755'
+        owner: todoapp
+        group: todoapp
+      become: yes
+    - name: installing epel-release
+      yum:
+        name: "epel-release"
+        state: present
+      become: yes
+    - name: installing nginx
+      yum:
+        name: "nginx"
+        state: present
+      become: yes
+    - name: starting nginx
+      service:
+        name: nginx
+        state: started
+      become: yes
+    - name: move nginx.cong to target
+      copy:
+        src: ./files/nginx.conf
+        dest: /etc/nginx/nginx.conf
+        owner: admin
+        mode: 0755
+      become: yes
+    - name: setting directory permissions and taking ownership
+      file:
+        path: /etc/nginx/nginx.conf
+        state: file
+        mode: '0777'
+        owner: nginx
+        group: nginx
+      become: yes
+    - name: disabling SELinux
+      selinux:
+        state: disabled
+      become: yes
+    - name: enabling nginx
+      service:
+        name: nginx
+        enabled: yes
+      become: yes
+    - name: shhhhh fixing a bug
+      shell:
+        cmd: fuser -k 80/tcp
+      become: yes
+    - name: restarting nginx
+      service:
+        name: nginx
+        state: restarted
+      become: yes
+    - name: copy the "todoapp.service" file
+      copy:
+        src: ./files/todoapp.service
+        dest: /etc/systemd/system/
+        owner: admin
+        mode: 0755
+      become: yes
+    - name: setting directory permissions and taking ownership
+      file:
+        path: /etc/systemd/system/todoapp.service
+        state: file
+        owner: todoapp
+        group: todoapp
+      become: yes
+    - name: reloading daemon
+      service:
+        daemon_reload: yes
+      become: yes
+    - name: enabling todoapp
+      service:
+        name: todoapp
+        enabled: yes
+      become: yes
+    - name: starting todoapp
+      service:
+        name: todoapp
+        state: started
+      become: yes
+    - name: disabling SELinux
+      selinux:
+        state: disabled
+      become: yes
+    - name: shhhhh fixing a bug
+      shell:
+        cmd: fuser -k 80/tcp
+      become: yes
+    - name: restarting nginx
+      service:
+        name: nginx
+        state: restarted
+      become: yes
+    # - name: run the "vm_setup.sh" script
+    #   script: ./files/vm_setup.sh
+    # - name: install nginx
+    #   package:
+    #     name: nginx
+    #     state: present
