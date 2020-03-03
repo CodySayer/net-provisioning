@@ -12,7 +12,7 @@ install_packages () {
     echo "[installing node]"
     sudo yum install nodejs -y >> /dev/null
     echo "[copying mongodb repo]"
-    sudo cp /home/admin/setup/mongodb-org.repo /etc/yum.repos.d/mongodb-org.repo >> /dev/null
+    sudo cp /home/admin/mongodb-org.repo /etc/yum.repos.d/mongodb-org.repo >> /dev/null
     echo "[installing mongodb server]"
     sudo yum install mongodb-org-server -y >> /dev/null
     echo "[enabling and starting mongod]"
@@ -37,7 +37,7 @@ install_application () {
     echo "[running npm install]"
     sudo npm install --prefix /home/todoapp/app/ACIT4640-todo-app >> /dev/null
     echo "[moving database.js from setup folder to target]"
-    sudo mv /home/admin/setup/database.js /home/todoapp/app/ACIT4640-todo-app/config/ >> /dev/null
+    sudo mv /home/admin/database.js /home/todoapp/app/ACIT4640-todo-app/config/ >> /dev/null
     echo "[setting firewall rules]"
     sudo firewall-cmd --permanent --zone=public --add-port=8080/tcp >> /dev/null
     sudo firewall-cmd --runtime-to-permanent >> /dev/null
@@ -56,7 +56,7 @@ install_nginx () {
     echo "[starting nginx]"
     sudo systemctl start nginx >> /dev/null
     echo "[moving nginx.conf to target]"
-    sudo mv /home/admin/setup/nginx.conf /etc/nginx/nginx.conf >> /dev/null
+    sudo mv /home/admin/nginx.conf /etc/nginx/nginx.conf >> /dev/null
     echo "[owning and setting permissions for nginx]"
     sudo chmod 777 /etc/nginx/nginx.conf >> /dev/null
     sudo chown nginx:nginx /etc/nginx/nginx.conf >> /dev/null
@@ -70,8 +70,7 @@ install_nginx () {
 
 nodejs_systemd () {
     echo "[moving todoapp.service to target]"
-    sudo mv /home/admin/setup/todoapp.service /etc/systemd/system/ >> /dev/null
-    # sudo chmod 0644 /etc/systemd/system/todoapp.service
+    sudo mv /home/admin/todoapp.service /etc/systemd/system/ >> /dev/null
     sudo chown todoapp:todoapp /etc/systemd/system/todoapp.service
     echo "[reloading daemon]"
     sudo systemctl daemon-reload >> /dev/null
