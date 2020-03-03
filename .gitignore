@@ -9,3 +9,8 @@ Vagrant/packer_cache
 Vagrant/output/4640_BASE.ova
 Vagrant/.vagrant
 Vagrant/base_4640.box
+module07/Isos/CentOS-7-x86_64-Minimal-1908.iso
+module07/packer_cache
+module07/output/4640_BASE.ova
+module07/.vagrant
+module07/base_4640.box

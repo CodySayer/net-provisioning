@@ -1,5 +1,5 @@
 # A Repo for ACIT 4640: Network Provisioning
 
-## Module 6
+## Module 7
 
-Automated provisioning with Vagrant
+Ansible Playbook
