@@ -1,11 +1,3 @@
 
-Packer/Isos/CentOS-7-x86_64-Minimal-1908.iso
-Packer/packer_cache
-Packer/output/4640_BASE.ova
-Packer/base_4640.box
-Packer/output
-Provisioning/Isos/CentOS-7-x86_64-Minimal-1908.iso
-Provisioning/packer_cache
-Provisioning/output/4640_BASE.ova
-Provisioning/.vagrant
-Provisioning/base_4640.box
+vagrant_ansible/.vagrant
+vagrant_ansible/base_4640.box
