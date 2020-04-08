@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    secgroup_ssh_allowed_instructor_cidr: 0.0.0.0/0
+  tasks:
+    - name: AWS Provisioning
+      include_role:
+        name: aws

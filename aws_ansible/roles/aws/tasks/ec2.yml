@@ -1,0 +1,29 @@
+- name: Creating an EC2 Instance
+  ec2:
+    instance_type: t2.micro
+    image: ami-01ed306a12b7d1c96
+    vpc_subnet_id: "{{ subnet_data.subnet.id }}"
+    region: "{{ aws_region }}"
+    group: "{{ secgroup_data.group_name }}"
+    key_name: aws_private_key
+    assign_public_ip: no
+    volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: 8
+    instance_tags:
+      Name: "{{ vpc_prefix }}_APP"
+    wait: yes
+    exact_count: 1
+    count_tag:
+      Name: "{{ vpc_prefix }}_APP"
+  register: ec2_data
+- name: Creating Elastic IP Address
+  ec2_eip:
+    region: "{{ aws_region }}"
+    release_on_disassociation: yes
+    device_id: "{{ ec2_data.tagged_instances[0].id }}"
+  register: elastic_data
+- name: Prints the IP address of the EC2 Instance
+  debug:
+    msg: "IP address: {{ elastic_data.public_ip }}"
