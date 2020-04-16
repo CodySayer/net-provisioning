@@ -10,13 +10,11 @@
     path: /home/{{ app_user_name }}/app/{{ git_repo }}
     name: bower
 
-- name: Updating packages based on package.json to their latest version.
+- name: Installing packages based on package.json.
   npm:
     path: /home/{{ app_user_name }}/app/{{ git_repo }}
-    state: latest
-  tags:
-    - deploy
 
 - name: Install packages based on bower.json.
   bower:
     path: /home/{{ app_user_name }}/app/{{ git_repo }}
+    relative_execpath: /home/{{ app_user_name }}/app/{{ git_repo }}/node_modules/.bin
