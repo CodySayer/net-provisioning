@@ -38,7 +38,7 @@ http {
             listen       80 default_server;
             listen       [::]:80 default_server;
             server_name  _;
-            root         {{app_path}}/public;
+            root         {{app_path}}/client/dist;
             index        index.html;
 
             # Load configuration files for the default server block.

@@ -16,3 +16,7 @@
     state: latest
   tags:
     - deploy
+
+- name: Install packages based on bower.json.
+  bower:
+    path: /home/{{ app_user_name }}/app/{{ git_repo }}

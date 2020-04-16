@@ -41,6 +41,12 @@
   tags:
     - deploy
   when: not details.stat.exists
+- name: Retake ownership (just in case)
+  file:
+    path: /home/{{ app_user_name }}
+    mode: '0755'
+  tags:
+    - deploy
 - include_role:
     name:  skymanager_service
   vars:
