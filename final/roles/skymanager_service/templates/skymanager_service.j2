@@ -1,0 +1,14 @@
+[Unit]
+Description=Skymanager, ACIT4640
+After=network.target
+
+[Service]
+Environment=NODE_PORT={{app_port}}
+WorkingDirectory=/home/skymanager/app/skymanager
+Type=simple
+User=skymanager
+ExecStart=/usr/bin/node /home/skymanager/app/skymanager/app.js
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

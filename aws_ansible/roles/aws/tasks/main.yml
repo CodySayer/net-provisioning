@@ -1,5 +1,0 @@
----
-- name: Creating VPC
-  include_tasks: vpc.yml
-- name: Creating EC2 Instance
-  include_tasks: ec2.yml

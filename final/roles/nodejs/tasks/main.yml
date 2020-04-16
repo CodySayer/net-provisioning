@@ -5,6 +5,11 @@
     state: present
   tags:
     - deploy
+- name: Install Bower
+  npm:
+    path: /home/{{ app_user_name }}/app/{{ git_repo }}
+    name: bower
+
 - name: Updating packages based on package.json to their latest version.
   npm:
     path: /home/{{ app_user_name }}/app/{{ git_repo }}

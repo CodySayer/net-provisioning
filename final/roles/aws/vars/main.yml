@@ -18,5 +18,5 @@ secgroup_ssh_allowed_instructor_cidr: 0.0.0.0/0
 ami_id: ami-01ed306a12b7d1c96
 ec2_instance_name: ACIT4640_APP
 ec2_instance_type: t2.micro
-aws_key_name: aws_private_key.pem
+aws_key_name: aws_private_key
 

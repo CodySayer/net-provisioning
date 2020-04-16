@@ -1,0 +1,16 @@
+---
+- name: gathering status information for Nginx and skymanager Service (skipped if unavailble)
+  service_facts:
+  register: ec2_services
+  tags:
+    - info
+- debug:
+    msg: " Nginx Service status: {{ ec2_services.ansible_facts.services['nginx.service']['state'] }}"
+  tags:
+    - info
+  when: ec2_services.ansible_facts.services['nginx.service'] is defined
+- debug:
+    msg: " Skymanager Service status: {{ ec2_services.ansible_facts.services['skymanager.service']['state'] }}"
+  tags:
+    - info
+  when: ec2_services.ansible_facts.services['skymanager.service'] is defined

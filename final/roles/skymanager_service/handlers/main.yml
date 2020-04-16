@@ -1,0 +1,9 @@
+---
+- name: Daemon-reload, Restart skymanager.service
+  systemd:
+    name: skymanager.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  tags: 
+    - deploy
