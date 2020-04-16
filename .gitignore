@@ -4,3 +4,4 @@ vagrant_ansible/base_4640.box
 aws_ansible/aws_access_keys
 aws_ansible/credentials.csv
 final/aws_access_keys
+final/aws_private_key.pem
