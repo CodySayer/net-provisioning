@@ -40,8 +40,6 @@
   tags:
     - cleanup
   register: ec2_vpc
-#- debug: 
-#    msg: "{{ ec2_secgroup }}"
 - name: cleaning up elastic ip
   ec2_eip:
     region: "{{ aws_region }}"
